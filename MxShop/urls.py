@@ -84,7 +84,8 @@ from trade.views import AlipayView
 from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
     url(r'^', include(router.urls)),
 
@@ -96,9 +97,13 @@ urlpatterns = [
     url(r'^api-token-auth/', views.obtain_auth_token),
 
     #jwt的认证接口
-    url(r'^login/', obtain_jwt_token),
+    url(r'^login/$', obtain_jwt_token),
 
+    #支付宝集成
     url(r'^alipay/return/', AlipayView.as_view(), name="alipay"),
+
+    #第三方登录（微博，扣扣，微信等...）
+    url('', include('social_django.urls', namespace='social')),
 ]
 
 

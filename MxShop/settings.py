@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_filters',
     'xadmin',
+    'social_django',
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken'
@@ -78,12 +79,24 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'MxShop.wsgi.application'
+
+#第三方登陸集成
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+    'social_core.backends.weibo.WeiboOAuth2',
+    'social_core.backends.qq.QQOAuth2',
+    'social_core.backends.weixin.WeixinOAuth2'
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 
 # Database
@@ -177,8 +190,8 @@ REGEX_MOBILE = "^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
 
 
 #云片网设置
-APIKEY = "d6c4ddbf50ab36611d2f52041a0b949e"
-#APIKEY = "ff38d7cefa5a1a0bce33635ec662b670"
+APIKEY = "d6c4ddbf50ab36611d2f52041a0b949e"   #他人的apikey
+#APIKEY = "ff38d7cefa5a1a0bce33635ec662b670"  #自己的apikey
 
 
 #支付宝相关配置
